@@ -1,29 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useWindowSize } from '@/hooks/useWindowSize'
+import { motion }                 from 'framer-motion'
+import { useWindowSize }          from '@/hooks/useWindowSize'
+import { SKILLS, CERTIFICATIONS } from '@/lib/constants'
 
 const skillCategories = [
-  {
-    title: 'Frontend',
-    color: '#6366f1',
-    skills: ['Angular', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'TailwindCSS', 'RxJS', 'Framer Motion'],
-  },
-  {
-    title: 'Backend',
-    color: '#8b5cf6',
-    skills: ['Node.js', 'NestJS', 'Express.js', 'REST APIs', 'JWT', 'WebSockets'],
-  },
-  {
-    title: 'Mobile',
-    color: '#a78bfa',
-    skills: ['Ionic', 'Flutter', 'Android', 'iOS', 'PWA', 'Capacitor'],
-  },
-  {
-    title: 'Database & Tools',
-    color: '#c4b5fd',
-    skills: ['MongoDB', 'PostgreSQL', 'Prisma', 'Git', 'GitHub', 'Figma', 'Docker'],
-  },
+  { title: 'Frontend', color: '#6366f1', skills: SKILLS.frontend },
+  { title: 'Backend', color: '#8b5cf6', skills: SKILLS.backend },
+  { title: 'Mobile', color: '#a78bfa', skills: SKILLS.mobile },
+  { title: 'Database & Tools', color: '#c4b5fd', skills: [...SKILLS.database, ...SKILLS.tools] },
 ]
 
 export default function Skills() {
@@ -81,6 +66,7 @@ export default function Skills() {
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
           gap: '24px',
+          marginBottom: '24px',
         }}>
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
@@ -100,9 +86,7 @@ export default function Skills() {
             >
               <div style={{
                 position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
+                top: 0, left: 0, right: 0,
                 height: '1px',
                 background: `linear-gradient(90deg, transparent, ${category.color}60, transparent)`,
               }} />
@@ -126,7 +110,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                    transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.04 }}
                     style={{
                       padding: '6px 12px',
                       borderRadius: '6px',
@@ -145,17 +129,59 @@ export default function Skills() {
           ))}
         </div>
 
+        {/* Architecture & Methodologies */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          style={{
+            padding: isMobile ? '20px' : '24px 32px',
+            borderRadius: '12px',
+            border: '1px solid rgba(99,102,241,0.2)',
+            background: 'rgba(99,102,241,0.05)',
+            marginBottom: '16px',
+          }}
+        >
+          <h3 style={{
+            fontSize: '13px',
+            fontWeight: '600',
+            color: '#6366f1',
+            marginBottom: '16px',
+            fontFamily: 'JetBrains Mono, monospace',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+          }}>
+            Arquitectura & Metodologías
+          </h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {SKILLS.architecture.map(skill => (
+              <span key={skill} style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: '#818cf8',
+                background: 'rgba(99,102,241,0.08)',
+                border: '1px solid rgba(99,102,241,0.15)',
+              }}>
+                {skill}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Certifications banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
           style={{
-            marginTop: '48px',
             padding: isMobile ? '20px' : '24px 32px',
             borderRadius: '12px',
-            border: '1px solid rgba(99,102,241,0.2)',
-            background: 'rgba(99,102,241,0.05)',
+            border: '1px solid rgba(255,255,255,0.05)',
+            background: 'rgba(255,255,255,0.02)',
             display: 'flex',
             alignItems: isMobile ? 'flex-start' : 'center',
             justifyContent: 'space-between',
@@ -165,10 +191,10 @@ export default function Skills() {
         >
           <div>
             <div style={{ fontSize: '15px', fontWeight: '600', color: '#fafafa', marginBottom: '4px' }}>
-              Siempre aprendiendo
+              Formación continua — {CERTIFICATIONS.length} certificaciones
             </div>
             <div style={{ fontSize: '13px', color: '#71717a' }}>
-              Udemy · Cursos continuos en Angular, Ionic, Figma, Git, MongoDB, Node.js
+              Angular · Ionic · Flutter · NextJS · NestJS · Microservicios · Docker · TypeScript
             </div>
           </div>
           <div style={{

@@ -3,68 +3,12 @@
 import { motion } from 'framer-motion'
 import { GitBranch } from 'lucide-react'
 import { useWindowSize } from '@/hooks/useWindowSize'
-
-const projects = [
-  {
-    title: 'BuenTaxi',
-    description: 'Plataforma de taxi compartido. Comparte, conoce, solicita y cotiza tu taxi en tiempo real. App móvil y web con Angular e Ionic.',
-    tags: ['Angular', 'Ionic', 'Node.js', 'MongoDB'],
-    github: 'https://github.com/jhoanjimz2/Buentaxi_Ionic',
-    featured: true,
-    gradient: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.05) 100%)',
-    accentColor: '#6366f1',
-  },
-  {
-    title: 'Passaparola',
-    description: 'App de cashback y recompensas publicada en App Store y Google Play. Compra en tiendas afiliadas y gana dinero real recomendando.',
-    tags: ['Angular', 'Ionic', 'Firebase', 'Node.js', 'PWA'],
-    github: 'https://github.com/jhoanjimz2/Passaparola_Ionic',
-    featured: true,
-    gradient: 'linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(167,139,250,0.05) 100%)',
-    accentColor: '#8b5cf6',
-  },
-  {
-    title: 'JointlyBuy',
-    description: 'App de compras conjuntas donde el precio baja conforme más personas se unen. Compra inteligente, colectiva y en tiempo real.',
-    tags: ['Flutter', 'Dart', 'REST APIs'],
-    github: 'https://github.com/jhoanjimz2/JointlyBuy_Flutter',
-    featured: true,
-    gradient: 'linear-gradient(135deg, rgba(167,139,250,0.15) 0%, rgba(196,181,253,0.05) 100%)',
-    accentColor: '#a78bfa',
-  },
-  {
-    title: 'Unika',
-    description: 'Plataforma de trading móvil para todos. Negocia Crypto, tokens ERC20, Founder Tickets y Property Tickets desde tu móvil.',
-    tags: ['Ionic', 'Angular', 'TypeScript', 'Web3'],
-    github: 'https://github.com/jhoanjimz2/Unika_Ionic',
-    featured: false,
-    gradient: '',
-    accentColor: '#c4b5fd',
-  },
-  {
-    title: 'Sictaxi',
-    description: 'Sistema de gestión de taxis para entidades gubernamentales. Dashboard administrativo con Angular y APIs REST.',
-    tags: ['Angular', 'TypeScript', 'REST APIs', 'RxJS'],
-    github: 'https://github.com/jhoanjimz2/Sictaxi',
-    featured: false,
-    gradient: '',
-    accentColor: '#6366f1',
-  },
-  {
-    title: 'BuenTaxi Web',
-    description: 'Landing page oficial de BuenTaxi. Diseño responsivo para presentar la plataforma e invitar a descargar la app.',
-    tags: ['Angular', 'TypeScript', 'CSS', 'PWA'],
-    github: 'https://github.com/jhoanjimz2/Buentaxi_Web',
-    featured: false,
-    gradient: '',
-    accentColor: '#8b5cf6',
-  },
-]
+import { PROJECTS } from '@/lib/constants'
 
 export default function Projects() {
   const { isMobile } = useWindowSize()
-  const featured = projects.filter(p => p.featured)
-  const rest = projects.filter(p => !p.featured)
+  const featured = PROJECTS.filter(p => p.featured)
+  const rest = PROJECTS.filter(p => !p.featured)
 
   return (
     <section id="projects" style={{ padding: isMobile ? '80px 16px' : '120px 24px' }}>

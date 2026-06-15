@@ -1,58 +1,9 @@
 'use client'
 
-import { motion }                   from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Briefcase, GraduationCap } from 'lucide-react'
-import { useWindowSize }            from '@/hooks/useWindowSize'
-
-const experience = [
-  {
-    company: 'Sistema AX, Lda',
-    role: 'Senior Full Stack Developer',
-    period: 'Mar 2025 - Abr 2026',
-    description: 'Desarrollo de funcionalidades full stack para plataformas de alto tráfico. Implementación de componentes reutilizables e integración de APIs REST en tiempo real para sistemas de recompensas y compras inteligentes.',
-    tags: ['Angular', 'Node.js', 'REST APIs', 'MongoDB', 'Agile'],
-    current: true,
-  },
-  {
-    company: 'InnLab',
-    role: 'Senior Full Stack Developer',
-    period: 'Ene 2023 - Ene 2026',
-    description: 'Lideré el desarrollo de aplicaciones web y móviles con Angular e Ionic. Participé en plataformas como Sictaxi y BuenTaxi. Evolución de desarrollador a socio estratégico del producto en entornos ágiles.',
-    tags: ['Angular', 'Ionic', 'TypeScript', 'Figma', 'Scrum'],
-    current: false,
-  },
-  {
-    company: 'Sistema AX, Lda',
-    role: 'Full Stack & Mobile Developer',
-    period: 'Ene 2020 - Ene 2023',
-    description: 'Desarrollo end-to-end de Etixpay desde planificación hasta despliegue en App Store y Google Play. PWAs y dashboards con Angular. Trabajo remoto con equipos internacionales.',
-    tags: ['Angular', 'Ionic', 'Node.js', 'PWA', 'MongoDB'],
-    current: false,
-  },
-]
-
-const education = [
-  {
-    institution: 'Universidad del Magdalena',
-    degree: 'Ingeniería de Sistemas',
-    period: '2016 - 2023',
-  },
-  {
-    institution: 'SENA',
-    degree: 'Tecnólogo en Análisis y Desarrollo de Software',
-    period: '2024 - 2026',
-  },
-  {
-    institution: 'Universidad Autónoma de Bucaramanga',
-    degree: 'Diplomado en Desarrollo de Aplicaciones Web',
-    period: '2022',
-  },
-  {
-    institution: 'Udemy',
-    degree: 'Angular, Ionic, Figma, Git, MongoDB, Node.js',
-    period: 'Constantemente',
-  },
-]
+import { useWindowSize } from '@/hooks/useWindowSize'
+import { EXPERIENCE, EDUCATION, CERTIFICATIONS } from '@/lib/constants'
 
 export default function Experience() {
   const { isMobile, isTablet } = useWindowSize()
@@ -99,25 +50,16 @@ export default function Experience() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: isSmall ? '1fr' : '1fr 1fr',
-          gap: isSmall ? '64px' : '64px',
+          gap: '64px',
         }}>
 
           {/* Experience */}
           <div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              marginBottom: '32px',
-            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
               <div style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
+                width: '32px', height: '32px', borderRadius: '8px',
                 background: 'rgba(99,102,241,0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <Briefcase size={16} style={{ color: '#6366f1' }} />
               </div>
@@ -129,15 +71,13 @@ export default function Experience() {
             <div style={{ position: 'relative' }}>
               <div style={{
                 position: 'absolute',
-                left: '11px',
-                top: '8px',
-                bottom: '8px',
+                left: '11px', top: '8px', bottom: '8px',
                 width: '1px',
                 background: 'linear-gradient(180deg, #6366f1, rgba(99,102,241,0.1))',
               }} />
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {experience.map((item, index) => (
+                {EXPERIENCE.map((item, index) => (
                   <motion.div
                     key={item.company + item.period}
                     initial={{ opacity: 0, x: -20 }}
@@ -148,10 +88,8 @@ export default function Experience() {
                   >
                     <div style={{
                       position: 'absolute',
-                      left: '4px',
-                      top: '6px',
-                      width: '16px',
-                      height: '16px',
+                      left: '4px', top: '6px',
+                      width: '16px', height: '16px',
                       borderRadius: '50%',
                       background: item.current ? '#6366f1' : '#1a1a1a',
                       border: `2px solid ${item.current ? '#6366f1' : '#333'}`,
@@ -198,28 +136,20 @@ export default function Experience() {
                         </div>
                       </div>
 
-                      <p style={{
-                        color: '#71717a',
-                        fontSize: '13px',
-                        lineHeight: '1.6',
-                        marginBottom: '12px',
-                      }}>
+                      <p style={{ color: '#71717a', fontSize: '13px', lineHeight: '1.6', marginBottom: '12px' }}>
                         {item.description}
                       </p>
 
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {item.tags.map(tag => (
-                          <span
-                            key={tag}
-                            style={{
-                              padding: '3px 8px',
-                              borderRadius: '4px',
-                              fontSize: '11px',
-                              color: '#71717a',
-                              background: 'rgba(255,255,255,0.03)',
-                              border: '1px solid rgba(255,255,255,0.05)',
-                            }}
-                          >
+                          <span key={tag} style={{
+                            padding: '3px 8px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
+                            color: '#71717a',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.05)',
+                          }}>
                             {tag}
                           </span>
                         ))}
@@ -231,22 +161,13 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Education */}
+          {/* Education & Certifications */}
           <div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              marginBottom: '32px',
-            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
               <div style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
+                width: '32px', height: '32px', borderRadius: '8px',
                 background: 'rgba(139,92,246,0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <GraduationCap size={16} style={{ color: '#8b5cf6' }} />
               </div>
@@ -255,8 +176,8 @@ export default function Experience() {
               </h3>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {education.map((item, index) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
+              {EDUCATION.map((item, index) => (
                 <motion.div
                   key={item.institution}
                   initial={{ opacity: 0, x: isSmall ? 0 : 20 }}
@@ -297,6 +218,46 @@ export default function Experience() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Certifications */}
+            <div style={{
+              padding: '24px',
+              borderRadius: '12px',
+              border: '1px solid rgba(99,102,241,0.15)',
+              background: 'rgba(99,102,241,0.03)',
+            }}>
+              <h4 style={{
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#6366f1',
+                marginBottom: '16px',
+                fontFamily: 'JetBrains Mono, monospace',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+              }}>
+                Certificaciones
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {CERTIFICATIONS.map((cert) => (
+                  <div key={cert} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '13px',
+                    color: '#71717a',
+                  }}>
+                    <span style={{
+                      width: '4px', height: '4px',
+                      borderRadius: '50%',
+                      background: '#6366f1',
+                      flexShrink: 0,
+                      display: 'inline-block',
+                    }} />
+                    {cert}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

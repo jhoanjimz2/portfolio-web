@@ -118,7 +118,7 @@ export default function Hero() {
             lineHeight: '1.7',
           }}
         >
-          6+ años construyendo productos digitales escalables con Angular, React, Node.js y Mobile.
+          6+ años construyendo productos digitales escalables con Angular, Nest.js, Next.js y Mobile.
           Barranquilla, Colombia 🇨🇴
         </motion.p>
 

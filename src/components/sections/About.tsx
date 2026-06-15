@@ -1,13 +1,14 @@
 'use client'
 
-import { motion }                              from 'framer-motion'
-import { MapPin, Code2, Smartphone, Calendar } from 'lucide-react'
-import { useWindowSize }                       from '@/hooks/useWindowSize'
+import { motion }                            from 'framer-motion'
+import { MapPin, Code2, Smartphone, Layers } from 'lucide-react'
+import { useWindowSize }                     from '@/hooks/useWindowSize'
+import { PERSONAL_INFO, STRENGTHS }          from '@/lib/constants'
 
 const stats = [
   { value: '6+', label: 'Años de experiencia' },
-  { value: '10+', label: 'Proyectos entregados' },
-  { value: '3', label: 'Países' },
+  { value: '3', label: 'Empresas internacionales' },
+  { value: '5+', label: 'Apps en producción' },
   { value: '∞', label: 'Ganas de construir' },
 ]
 
@@ -15,17 +16,17 @@ const highlights = [
   {
     icon: Code2,
     title: 'Full Stack',
-    description: 'Angular, React, Next.js, Node.js, NestJS. De la idea al producto.',
+    description: 'Angular, Next.js, NestJS, Node.js. Del diseño técnico a producción.',
   },
   {
     icon: Smartphone,
-    title: 'Mobile',
-    description: 'Apps iOS y Android con Ionic y Flutter. PWAs de alto rendimiento.',
+    title: 'Mobile & PWA',
+    description: 'Apps iOS y Android con Ionic y Flutter. Publicadas en App Store y Google Play.',
   },
   {
-    icon: Calendar,
-    title: 'Fundador',
-    description: 'Mentalidad de producto. Construyo soluciones que escalan.',
+    icon: Layers,
+    title: 'Arquitectura',
+    description: 'Soluciones escalables orientadas al negocio.',
   },
 ]
 
@@ -36,9 +37,7 @@ export default function About() {
   return (
     <section
       id="about"
-      style={{
-        padding: isMobile ? '80px 16px' : '120px 24px',
-      }}
+      style={{ padding: isMobile ? '80px 16px' : '120px 24px' }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{
@@ -48,7 +47,7 @@ export default function About() {
           alignItems: 'center',
         }}>
 
-          {/* Left - Text */}
+          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: isSmall ? 0 : -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -79,37 +78,35 @@ export default function About() {
               <span className="gradient-text">no solo código</span>
             </h2>
 
-            <p style={{
-              color: '#71717a',
-              lineHeight: '1.8',
-              marginBottom: '16px',
-              fontSize: '16px',
-            }}>
-              Soy un desarrollador Full Stack con más de 6 años de experiencia
-              creando aplicaciones web y móviles escalables. Me especializo en
-              arquitectura frontend moderna y soluciones end-to-end.
+            <p style={{ color: '#71717a', lineHeight: '1.8', marginBottom: '16px', fontSize: '16px' }}>
+              {PERSONAL_INFO.bio}
             </p>
 
-            <p style={{
-              color: '#71717a',
-              lineHeight: '1.8',
-              marginBottom: '32px',
-              fontSize: '16px',
-            }}>
-              He trabajado en proyectos nacionales e internacionales como
-              BuenTaxi, Sictaxi, Etixpay y Passaparola, liderando equipos y
-              tomando decisiones técnicas que impactan el negocio.
+            <p style={{ color: '#71717a', lineHeight: '1.8', marginBottom: '32px', fontSize: '16px' }}>
+              Mi enfoque se centra en crear soluciones escalables, mantenibles y orientadas al negocio,
+              combinando experiencia técnica, visión de producto y una fuerte orientación a la experiencia del usuario.
             </p>
 
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: '#a1a1aa',
-              fontSize: '14px',
-            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa', fontSize: '14px', marginBottom: '24px' }}>
               <MapPin size={16} style={{ color: '#6366f1' }} />
-              Barranquilla, Colombia
+              {PERSONAL_INFO.location}
+            </div>
+
+            {/* Strengths */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {STRENGTHS.map(s => (
+                <span key={s} style={{
+                  padding: '5px 12px',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  fontWeight: '500',
+                  color: '#a1a1aa',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  {s}
+                </span>
+              ))}
             </div>
           </motion.div>
 
@@ -128,16 +125,13 @@ export default function About() {
               marginBottom: '32px',
             }}>
               {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  style={{
-                    padding: isMobile ? '16px' : '24px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.06)',
-                    background: 'rgba(255,255,255,0.02)',
-                    textAlign: 'center',
-                  }}
-                >
+                <div key={stat.label} style={{
+                  padding: isMobile ? '16px' : '24px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'rgba(255,255,255,0.02)',
+                  textAlign: 'center',
+                }}>
                   <div style={{
                     fontSize: isMobile ? '2rem' : '2.5rem',
                     fontWeight: '800',
@@ -147,11 +141,7 @@ export default function About() {
                   }}>
                     {stat.value}
                   </div>
-                  <div style={{
-                    fontSize: '12px',
-                    color: '#71717a',
-                    fontWeight: '500',
-                  }}>
+                  <div style={{ fontSize: '12px', color: '#71717a', fontWeight: '500' }}>
                     {stat.label}
                   </div>
                 </div>
@@ -161,44 +151,29 @@ export default function About() {
             {/* Highlights */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {highlights.map((item) => (
-                <div
-                  key={item.title}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '16px',
-                    padding: '16px',
-                    borderRadius: '10px',
-                    border: '1px solid rgba(255,255,255,0.04)',
-                    background: 'rgba(255,255,255,0.02)',
-                  }}
-                >
+                <div key={item.title} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '16px',
+                  padding: '16px',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.04)',
+                  background: 'rgba(255,255,255,0.02)',
+                }}>
                   <div style={{
-                    width: '36px',
-                    height: '36px',
+                    width: '36px', height: '36px',
                     borderRadius: '8px',
                     background: 'rgba(99,102,241,0.15)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                     flexShrink: 0,
                   }}>
                     <item.icon size={18} style={{ color: '#6366f1' }} />
                   </div>
                   <div>
-                    <div style={{
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      color: '#fafafa',
-                      marginBottom: '4px',
-                    }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600', color: '#fafafa', marginBottom: '4px' }}>
                       {item.title}
                     </div>
-                    <div style={{
-                      fontSize: '13px',
-                      color: '#71717a',
-                      lineHeight: '1.5',
-                    }}>
+                    <div style={{ fontSize: '13px', color: '#71717a', lineHeight: '1.5' }}>
                       {item.description}
                     </div>
                   </div>

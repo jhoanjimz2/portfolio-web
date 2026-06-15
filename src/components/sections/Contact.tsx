@@ -1,9 +1,10 @@
 'use client'
 
-import { motion }                           from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Mail, MapPin, ExternalLink, Send } from 'lucide-react'
-import { useState }                         from 'react'
-import { useWindowSize }                    from '@/hooks/useWindowSize'
+import { useState } from 'react'
+import { useWindowSize } from '@/hooks/useWindowSize'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const { isMobile, isTablet } = useWindowSize()
@@ -15,28 +16,48 @@ export default function Contact() {
     e.preventDefault()
     setStatus('loading')
     try {
-      const res = await fetch('http://localhost:3001/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (res.ok) {
-        setStatus('success')
-        setForm({ name: '', email: '', subject: '', message: '' })
-      } else {
-        setStatus('error')
-      }
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          subject: form.subject,
+          message: form.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '' })
     } catch {
       setStatus('error')
     }
     setTimeout(() => setStatus('idle'), 4000)
   }
 
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    border: '1px solid rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.03)',
+    color: '#fafafa',
+    fontSize: '14px',
+    outline: 'none',
+    boxSizing: 'border-box' as const,
+    fontFamily: 'inherit',
+  }
+
+  const labelStyle = {
+    display: 'block',
+    fontSize: '13px',
+    color: '#a1a1aa',
+    marginBottom: '8px',
+    fontWeight: '500',
+  }
+
   return (
-    <section
-      id="contact"
-      style={{ padding: isMobile ? '80px 16px' : '120px 24px' }}
-    >
+    <section id="contact" style={{ padding: isMobile ? '80px 16px' : '120px 24px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         <motion.div
@@ -163,83 +184,51 @@ export default function Contact() {
                 gap: '16px',
                 marginBottom: '16px',
               }}>
-                {[
-                  { key: 'name', label: 'Nombre', placeholder: 'Tu nombre', type: 'text' },
-                  { key: 'email', label: 'Email', placeholder: 'tu@email.com', type: 'email' },
-                ].map((field) => (
-                  <div key={field.key}>
-                    <label style={{ display: 'block', fontSize: '13px', color: '#a1a1aa', marginBottom: '8px', fontWeight: '500' }}>
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      required
-                      value={form[field.key as keyof typeof form]}
-                      onChange={e => setForm({ ...form, [field.key]: e.target.value })}
-                      placeholder={field.placeholder}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        background: 'rgba(255,255,255,0.03)',
-                        color: '#fafafa',
-                        fontSize: '14px',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                      }}
-                    />
-                  </div>
-                ))}
+                <div>
+                  <label style={labelStyle}>Nombre</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
+                    placeholder="Tu nombre"
+                    style={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })}
+                    placeholder="tu@email.com"
+                    style={inputStyle}
+                  />
+                </div>
               </div>
 
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '13px', color: '#a1a1aa', marginBottom: '8px', fontWeight: '500' }}>
-                  Asunto
-                </label>
+                <label style={labelStyle}>Asunto</label>
                 <input
                   type="text"
                   required
                   value={form.subject}
                   onChange={e => setForm({ ...form, subject: e.target.value })}
                   placeholder="¿En qué puedo ayudarte?"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    background: 'rgba(255,255,255,0.03)',
-                    color: '#fafafa',
-                    fontSize: '14px',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                  }}
+                  style={inputStyle}
                 />
               </div>
 
               <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '13px', color: '#a1a1aa', marginBottom: '8px', fontWeight: '500' }}>
-                  Mensaje
-                </label>
+                <label style={labelStyle}>Mensaje</label>
                 <textarea
                   required
                   value={form.message}
                   onChange={e => setForm({ ...form, message: e.target.value })}
                   placeholder="Cuéntame sobre tu proyecto..."
                   rows={5}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    background: 'rgba(255,255,255,0.03)',
-                    color: '#fafafa',
-                    fontSize: '14px',
-                    outline: 'none',
-                    resize: 'vertical',
-                    fontFamily: 'inherit',
-                    boxSizing: 'border-box',
-                  }}
+                  style={{ ...inputStyle, resize: 'vertical' }}
                 />
               </div>
 
@@ -250,7 +239,7 @@ export default function Contact() {
                   width: '100%',
                   padding: '14px 28px',
                   borderRadius: '8px',
-                  background: status === 'success' ? '#10b981' : '#6366f1',
+                  background: status === 'success' ? '#10b981' : status === 'error' ? '#ef4444' : '#6366f1',
                   color: 'white',
                   fontWeight: '600',
                   fontSize: '15px',
@@ -267,7 +256,7 @@ export default function Contact() {
                 <Send size={16} />
                 {status === 'idle' && 'Enviar mensaje'}
                 {status === 'loading' && 'Enviando...'}
-                {status === 'success' && '¡Mensaje enviado!'}
+                {status === 'success' && '¡Mensaje enviado! 🎉'}
                 {status === 'error' && 'Error, intenta de nuevo'}
               </button>
             </form>
