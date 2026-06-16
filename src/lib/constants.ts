@@ -39,7 +39,7 @@ export const EXPERIENCE = [
     role: 'Frontend & Mobile Developer',
     period: '2020 – 2023',
     current: false,
-    description: 'Lideré el desarrollo de Etixpay utilizando Angular, Ionic, TypeScript, Cordova y Capacitor. Participé en el desarrollo end-to-end del producto, desde el diseño técnico hasta el despliegue. Construí funcionalidades para aplicaciones web y móviles multiplataforma. Implementé integraciones con APIs y servicios de terceros.',
+    description: 'Fuí parte del equipo principal en el desarrollo de Etixpay utilizando Angular, Ionic, TypeScript, Cordova y Capacitor. Participé en el desarrollo end-to-end del producto, desde el diseño técnico hasta el despliegue. Construí funcionalidades para aplicaciones web y móviles multiplataforma. Implementé integraciones con APIs y servicios de terceros.',
     tags: ['Angular', 'Ionic', 'TypeScript', 'Node.js'],
   },
 ]
